@@ -1,4 +1,4 @@
 genomelaser-tools
 =================
 
-converters/inverters/shark-augmentors
+converters/inverters/shark-augmenters
