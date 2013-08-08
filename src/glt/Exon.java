@@ -2,7 +2,6 @@ package glt;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Arrays;
 
 public class Exon implements Comparable<Exon> {
 
@@ -12,7 +11,7 @@ public class Exon implements Comparable<Exon> {
 	private CCDS ccds = null; // the CCDS containing this Exon
 
 	private RandomAccessFile file = null;
-	private String bases = null;  
+	private Bases bases = null;  
 	
 	private Exon(String id, int from, int to, CCDS ccds) {
 
@@ -55,13 +54,13 @@ public class Exon implements Comparable<Exon> {
 		return this;
 	}
 	
-	public String getBases() {
+	public Bases getBases() {
 		
 		if (this.bases == null) {
 			
 			int length = this.getLength();
 			
-			this.bases = new String();
+			this.bases = new Bases();
 
 			try {
 				
@@ -70,30 +69,16 @@ public class Exon implements Comparable<Exon> {
 				this.file.seek(this.getFrom());
 				this.file.read(bases, 0, length);
 
-				// by default the data in the FASTA file is on the positive branch.
+				// add all the letters
+				this.bases.add(new String(bases));
+
+				// by default the data in the FASTA file is on the positive strand.
 				// so if it is on the negative one, then we have to reverse-complement it
-				if (this.getStrand() == Gene.Strand.Positive) {
+				if (this.getStrand() == Gene.Strand.Negative) {
 
-					this.bases =  new String(bases);
-					
-				} else {
-					
-					StringBuffer complement = new StringBuffer();
-					
-					for (byte b : bases) {
-						
-						String letter = new String(new byte[] {b});
-
-						// get the base for the letter and build the complement
-						Base base = Base.forLetter(letter);
-						base = base.getComplement(base);
-						
-						complement.append(base.getLetter());
-					}
-
-					// and finally reverse it
-					this.bases = complement.reverse().toString();
+					this.bases = this.bases.reverseComplement();
 				}
+
 			} catch (IOException e) {
 				System.err.println("I/O error");
 				e.getLocalizedMessage();

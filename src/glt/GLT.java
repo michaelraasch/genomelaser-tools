@@ -93,7 +93,7 @@ public class GLT {
 	}
 
 	static private String chromosomeFastaFileName(String id) {
-		return "chromosome." + id.toLowerCase() + ".fasta";
+		return "chromosome." + id.toLowerCase() + ".fa";
 	}
 
 	static private String chromosomeBinFileName(String id) {
@@ -395,12 +395,12 @@ public class GLT {
 				for (Exon exon : exportableExons) {
 
 					exon.setSourceFile(in);
-					String strand = exon.getBases();
+					Bases bases = exon.getBases();
 					
 					// write the strand to the new file
-					outBin.writeBytes(strand);
+					outBin.writeBytes(bases.getLetters());
 
-					int length = strand.length();
+					int length = bases.length();
 					
 					// write [from],[length] into index file
 					String location = "" + currentWritePosition + "," + length
