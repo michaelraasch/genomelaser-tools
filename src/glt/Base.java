@@ -49,7 +49,7 @@ public class Base {
 		return this;
 	}
 	
-	public Base getComplement(Base base) {
-		return Base.complements.get(base);
+	public Base getComplement() {
+		return Base.complements.get(this);
 	}
 }
