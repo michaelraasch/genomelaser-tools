@@ -439,11 +439,20 @@ public class GLT {
 
 		ArrayList<String> help = new ArrayList<String>();
 
-		help.add("GenomeLaserTools v2013.08.03");
-		help.add("the cool stuff for Burning Man 2013 by Alex, Michael and Vincent");
+		help.add("GenomeLaserTools v2013.08.09");
+		help.add("the cool stuff for Burning Man 2013 by Alex, Michael, Neil and Vincent");
+		help.add("");
+		help.add("Get the reference human genome fasta files from");
+		help.add("ftp://ftp.ncbi.nlm.nih.gov/genomes/H_sapiens/Assembled_chromosomes/seq/hs_ref_GRCh37.p10_chr?.fa.gz");
+		help.add("with ? = 1..22 and X and Y");
+		help.add("and unzip them into the source-directory");
+		help.add("");
+		help.add("Get the CDDS meta-data from");
+		help.add("ftp://ftp.ncbi.nlm.nih.gov/pub/CCDS/current_human/CCDS.current.txt");
+		help.add("and save it in the source-directory");
 		help.add("");
 		help.add("Usage:");
-		help.add("GLT [OPTIONS]... DIRECTORY-CONTAINING-FASTA-AND-CCDS-SOURCE-FILES");
+		help.add("java GLT [OPTIONS]... DIRECTORY-CONTAINING-FASTA-AND-CCDS-SOURCE-FILES");
 		help.add("(Note: generated files are saved in the source-directory)");
 		help.add("");
 
