@@ -78,9 +78,15 @@ public class Bases {
 	 * @return a new Bases object with complemented bases
 	 */
 	public Bases complement() {
-		Bases bases = new Bases(this);
-		Collections.reverse(bases.bases);
-		return bases;
+		
+		Bases complement = new Bases();
+		
+		// get the complement for each individual base
+		for (Base base : this.bases) {
+			complement.add(base.getComplement());
+		}
+		
+		return complement;
 	}
 
 	/**
