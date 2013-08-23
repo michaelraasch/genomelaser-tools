@@ -46,9 +46,13 @@ public class Config {
 
 		return this.chromosomeIds;
 	}
-	
+
 	public void setDirectory(String dir) {
 		directory = dir;
+	}
+
+	public String getDirectory() {
+		return this.directory;
 	}
 	
 	public String getExonsFileName() {

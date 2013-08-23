@@ -8,29 +8,34 @@ public class Exon implements Comparable<Exon> {
 	private String id = null; // the unique ID
 	private int from = 0; // the start position within the Chromosoome
 	private int to = 0; // the stop position within the Chromosome
-	private CCDS ccds = null; // the CCDS containing this Exon
+	private CDS cds = null; // the CDS containing this Exon
 
 	private RandomAccessFile file = null;
 	private Bases bases = null;  
 	
-	private Exon(String id, int from, int to, CCDS ccds) {
+	private Exon(String id, int from, int to, CDS cds) {
 
 		this.id = id;
 		this.from = from;
 		this.to = to;
 
-		this.ccds = ccds;
+		this.cds = cds;
 
 		// add ourselves to the CCDS
-		ccds.add(this);
+		cds.add(this);
 	}
 
-	public CCDS getCCDS() {
-		return this.ccds;
+	public CDS getCCDS() {
+		return this.cds;
 	}
 
 	public String getId() {
 		return this.id;
+	}
+
+	public Exon setFrom(int from) {
+		this.from = from;
+		return this;
 	}
 
 	public int getFrom() {
@@ -41,17 +46,35 @@ public class Exon implements Comparable<Exon> {
 		return this.to;
 	}
 
+	public Exon setLength(int length) {
+		this.to = this.from + length - 1;
+		return this;
+	}
+
 	public int getLength() {
 		return this.to - this.from + 1;
 	}
 
-	public Gene.Strand getStrand() {
-		return this.ccds.getStrand();
+	public Strand getStrand() {
+		return this.cds.getStrand();
 	}
 	
 	public Exon setSourceFile(RandomAccessFile file) {
 		this.file = file;
 		return this;
+	}
+
+	public Bases getBases(Strand strand) {
+
+		// get the bases as they are
+		this.getBases();
+
+		// is the requested strand the same as the exon's strand?
+		// then it is all fine. Otherwise reverse complement it,
+		// because we want to get it from the opposite strand
+		Bases bases = this.getStrand() == strand ? this.bases : this.bases.reverseComplement();
+		
+		return bases;
 	}
 	
 	public Bases getBases() {
@@ -74,7 +97,7 @@ public class Exon implements Comparable<Exon> {
 
 				// by default the data in the FASTA file is on the positive strand.
 				// so if it is on the negative one, then we have to reverse-complement it
-				if (this.getStrand() == Gene.Strand.Negative) {
+				if (this.getStrand() == Strand.Negative) {
 
 					this.bases = this.bases.reverseComplement();
 				}
@@ -86,6 +109,14 @@ public class Exon implements Comparable<Exon> {
 		}
 		
 		return this.bases;
+	}
+
+	/**
+	 * Removes the object from the CDS collection again
+	 * @return The CDS
+	 */
+	public CDS remove() {
+		return this.cds.remove(this);
 	}
 	
 	/**
@@ -99,7 +130,7 @@ public class Exon implements Comparable<Exon> {
 	 *            The CCDS containing the Exon
 	 * @return a new Exon or returns an already existing one.
 	 */
-	static public Exon factory(int from, int to, CCDS ccds) {
+	static public Exon factory(int from, int to, CDS ccds) {
 
 		// an Exon does not have an ID, so we make it up
 		String id = Integer.toString(from) + ":" + Integer.toString(to);

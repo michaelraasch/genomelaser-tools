@@ -1,5 +1,7 @@
 package glt;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +22,10 @@ public class Chromosome {
 		Chromosome.chromosomes.put(id, this);
 	}
 
+	static public Chromosome get(String id) {
+		return Chromosome.chromosomes.get(id);
+	}
+	
 	public String getId() {
 		return this.id;
 	}

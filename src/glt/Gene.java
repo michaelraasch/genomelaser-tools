@@ -6,10 +6,6 @@ import java.util.Map;
 
 public class Gene {
 
-	public enum Strand {
-		Positive, Negative
-	}
-	
 	private String id = null; // the unique Gene ID
 	private String name = null; // The Gene's name
 	private Strand strand = null;
