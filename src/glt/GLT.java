@@ -35,13 +35,6 @@ public class GLT {
 	public static Logger logger = Logger.getLogger("com.GLT");
 
 	/**
-	 * Helper-class for one option e.g. convert the FASTA files
-	 * 
-	 * @author michael
-	 * 
-	 */
-	
-	/**
 	 * The CCDS file structure
 	 * 
 	 * @author michael
