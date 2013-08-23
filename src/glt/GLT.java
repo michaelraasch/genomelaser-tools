@@ -784,7 +784,7 @@ public class GLT {
 		help.add("and save it in the source-directory");
 		help.add("");
 		help.add("Usage:");
-		help.add("java GLT [OPTIONS] arg1 arg2 ...");
+		help.add("java jar GLT [OPTIONS] arg1 arg2 ...");
 		help.add("(Note: generated files are saved in the working directory)");
 		help.add("");
 		help.add("-cf - convert FASTA to the fileformat required by the tool. Suggested is \".bases\".");
